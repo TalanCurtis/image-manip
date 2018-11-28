@@ -1,0 +1,12 @@
+.CreateFile {
+  @extend %flex-center;
+  .grid {
+    width: 300px;
+    display: grid;
+    div {
+      display: grid;
+      grid-template-columns: 80px 1fr;
+      margin: 5px;
+    }
+  }
+}

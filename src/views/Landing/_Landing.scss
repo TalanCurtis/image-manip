@@ -1,0 +1,40 @@
+.Landing {
+  @extend %flex-center;
+  height: 100%;
+  // width: 100%;
+  // background-color: rgb(112, 94, 155);
+  border: 1px solid rgb(211, 211, 211);
+  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.322);
+  .grid {
+    display: grid;
+    width: 300px;
+    .header {
+      @extend %flex-center;
+      height: 80px;
+    }
+    .input-area {
+      @extend %flex-center;
+      justify-content: space-between;
+      padding: 10px; 
+    }
+    .list {
+
+    }
+    .footer {
+      @extend %flex-center;
+      justify-content: space-between;
+      padding: 10px;
+    }
+  }
+}
+
+.none {
+  @extend %flex-center;
+  justify-content: space-between;
+  padding: 10px;
+}
+.card {
+  @extend %flex-center;
+  justify-content: space-between;
+  padding: 10px; 
+}
