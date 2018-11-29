@@ -51,6 +51,17 @@ app.post('/api/makeDir', (req, res)=>{
     res.status(200).send("done")
 });
 
+app.get('/api/photoshop', (req, res)=>{
+    const testResponse = "Hello"
+    console.log(testResponse)
+    res.status(200).send(testResponse)
+});
+
+app.post('/api/processFiles', (req, res) => {
+    console.log("req", req.body)
+    res.status(200).send(req.body)
+})
+
 // Launch Server
 app.listen(SERVER_PORT, () => (console.log(`boiling on port: ${SERVER_PORT}`)))
 
