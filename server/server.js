@@ -4,7 +4,38 @@ const massive = require('massive')
 const bodyParser=require('body-parser');
 const fs = require('fs')
 const multer = require('multer');
-const upload = multer({dest: "./uploads"});
+
+fileFilter = function (req, res, next) {
+//   const allowedTypes = ["image/jpeg", "image/png", "image/gif", "image/svg+xml"]
+//   console.log("i ran", req.files)
+//   const files = req.files
+//   for (let file in files){
+//       for (let i in file){
+//           console.log("hello", file)
+
+//       }
+//     //   if(!allowedTypes.includes(files[file].mimetype)){
+//         // console.log("send error")
+//     //   }
+//   }
+// //   for (let file in req.files){
+// //     if(!allowedTypes.includes(file.mimetype)){
+// //       console.log("send error")
+// //       const error = new Error(" Wrong file type.")
+// //       error.code = "LIMIT_FILE_TYPES";
+// //       return next( error, false)
+// //     } else {
+// //       console.log("file good")
+// //     }
+// //   }
+  next(null, true)
+}
+
+const upload = multer({
+    dest: "./uploads",
+    fileFilter
+});
+
 
 const app = express()
 
@@ -65,9 +96,8 @@ app.get('/api/photoshop', (req, res)=>{
 // })
 
 // multiple file upload
-let cpUpload = upload.fields([{name:"file", maxCount:20}])
+let cpUpload = upload.fields([{name:"files", maxCount:20}])
 app.post('/api/processFiles', cpUpload, (req, res) => {
-    console.log("req", req.files)
     res.status(200).send(req.files)
 })
 

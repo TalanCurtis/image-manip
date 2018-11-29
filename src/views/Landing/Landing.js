@@ -31,9 +31,9 @@ class Landing extends Component{
     for (let i = 0; i < files.length; i++) {
       let file = files[i];
       console.log(file.name)
-      formData.append('file', file);
+      formData.append('files', file);
     }
-    
+
     axios.post("api/processFiles", formData).then((res)=>{
       console.log("res:", res.data)
     })
@@ -52,7 +52,7 @@ class Landing extends Component{
     return(
       <div className="Landing">
         landing view
-        <input type="file" id="myFile" multiple size="50" accept=".png, .svg, .jpeg, .tga" onChange={this.handleSelectedFiles} encType="multipart/form-data"></input>
+        <input type="file" id="myFile" multiple size="50"  onChange={this.handleSelectedFiles} encType="multipart/form-data"></input>
         {list}
         <button onClick={this.handleProcessFiles}>Process Files</button>
         <button onClick={this.openPhotoshop}>Open Photoshop</button>
