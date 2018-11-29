@@ -25,7 +25,16 @@ class Landing extends Component{
 
   handleProcessFiles = () => {
     console.log("handle process files")
-    axios.post("api/processFiles", {files: this.state.selectedFiles}).then((res)=>{
+
+    const formData = new FormData();
+    const files = document.getElementById("myFile").files
+    for (let i = 0; i < files.length; i++) {
+      let file = files[i];
+      console.log(file.name)
+      formData.append('file', file);
+    }
+    
+    axios.post("api/processFiles", formData).then((res)=>{
       console.log("res:", res.data)
     })
   }
@@ -43,7 +52,7 @@ class Landing extends Component{
     return(
       <div className="Landing">
         landing view
-        <input type="file" id="myFile" multiple size="50" accept=".png, .svg, .jpeg, .tga" onChange={this.handleSelectedFiles}></input>
+        <input type="file" id="myFile" multiple size="50" accept=".png, .svg, .jpeg, .tga" onChange={this.handleSelectedFiles} encType="multipart/form-data"></input>
         {list}
         <button onClick={this.handleProcessFiles}>Process Files</button>
         <button onClick={this.openPhotoshop}>Open Photoshop</button>

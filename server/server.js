@@ -3,6 +3,8 @@ const express = require('express')
 const massive = require('massive')
 const bodyParser=require('body-parser');
 const fs = require('fs')
+const multer = require('multer');
+const upload = multer({dest: "./uploads"});
 
 const app = express()
 
@@ -15,7 +17,6 @@ massive(CONNECTION_STRING).then(db => {console.log('Database up'); app.set('db',
 // Top Level middleware
 app.use( express.static( `${__dirname}/../build` ) );
 app.use(bodyParser.json())
-
 
 // Controller Imports
 const aTestController = require('./controllers/aTestController')
@@ -57,9 +58,17 @@ app.get('/api/photoshop', (req, res)=>{
     res.status(200).send(testResponse)
 });
 
-app.post('/api/processFiles', (req, res) => {
-    console.log("req", req.body)
-    res.status(200).send(req.body)
+//  single file upload
+// app.post('/api/processFiles', upload.single('file'), (req, res) => {
+//     console.log("req", req.file)
+//     res.status(200).send(req.file)
+// })
+
+// multiple file upload
+let cpUpload = upload.fields([{name:"file", maxCount:20}])
+app.post('/api/processFiles', cpUpload, (req, res) => {
+    console.log("req", req.files)
+    res.status(200).send(req.files)
 })
 
 // Launch Server
